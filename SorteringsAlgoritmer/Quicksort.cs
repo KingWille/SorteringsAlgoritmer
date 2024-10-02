@@ -18,6 +18,7 @@ namespace SorteringsAlgoritmer
 
             Console.WriteLine();
         }
+        //funkar nästan
         public static void Sort(int[] arr, int hi, int lo)
         {
             if(hi > lo)
