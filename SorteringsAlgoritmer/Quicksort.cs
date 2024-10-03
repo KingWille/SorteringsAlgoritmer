@@ -18,8 +18,8 @@ namespace SorteringsAlgoritmer
 
             Console.WriteLine();
         }
-        //funkar nästan
-        public static void Sort(int[] arr, int hi, int lo)
+
+        public static void Sort(int[] arr, int lo, int hi)
         {
             if(hi > lo)
             {
@@ -28,25 +28,35 @@ namespace SorteringsAlgoritmer
                 int i = lo + 1;
                 int j = hi;
 
-                while(i < j)
+                //Kör loopen medan i är mindre än j
+                while(i <= j)
                 {
-                    while(arr[i] < p && i < hi)
+                    //i++ medans indexen är mindre än eller lika med högsta index och värdet på indexen är mindre än pivoten
+                    while(i <= hi && arr[i] < p)
                     {
                         i++;
                     }
 
+                    //j-- medans index värdet är större än pivot
                     while (arr[j] > p)
                     {
                         j--;
                     }
 
-                    Exchange(arr, i, j);
+                    //Bytar endast plats om i är mindre än eller lika med j
+                    if(i <= j)
+                    {
+                        Exchange(arr, i, j);
+                        i++;
+                        j--;
+                    }
                 }
 
+                //Sätter pivot på rätt ställe
                 Exchange(arr, lo, j);
 
-                Sort(arr, j - 1, lo);
-                Sort(arr, hi, j + 1);
+                Sort(arr, lo, j - 1);
+                Sort(arr, j + 1, hi);
             }
         }
 
