@@ -6,7 +6,7 @@
         static void Main(string[] args)
         {
             Random rnd = new Random();
-            int arrSize = 100000000;
+            int arrSize = 1250000;
             int[] rndArr = new int[arrSize];
 
             for (int i = 0; i < rndArr.Length; i++)
@@ -17,8 +17,9 @@
             //MergesortBetter.PrintArray(rndArr);
 
             DateTime start = DateTime.Now;
+            StdSort.Sort(rndArr);
             //MergesortBetter.Sort(rndArr, 0, rndArr.Length - 1);
-            QuicksortBetter.Sort(rndArr, 0, rndArr.Length - 1);
+            //QuicksortBetter.Sort(rndArr, 0, rndArr.Length - 1);
             //Mergesort.Sort(rndArr, 0, rndArr.Length - 1);
             //Quicksort.Sort(rndArr, 0, rndArr.Length - 1);
             DateTime end = DateTime.Now;
