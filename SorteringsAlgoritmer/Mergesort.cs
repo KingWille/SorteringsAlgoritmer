@@ -18,20 +18,25 @@ namespace SorteringsAlgoritmer
 
             Console.WriteLine();
         }
-        public static void Sort(int[] arr, int lo, int hi)
+
+        public static void Sort(int[] arr)
+        {
+            StartSort(arr, 0, arr.Length - 1);
+        }
+        private static void StartSort(int[] arr, int lo, int hi)
         {
             if(lo < hi)
             {
                 int mid = lo + (hi - lo) / 2;
 
-                Sort(arr, lo, mid);
-                Sort(arr, mid + 1, hi);
+                StartSort(arr, lo, mid);
+                StartSort(arr, mid + 1, hi);
 
                 Merge(arr, lo, hi, mid);
             }
         }
 
-        public static void Merge(int[] arr, int lo, int hi, int mid)
+        private static void Merge(int[] arr, int lo, int hi, int mid)
         {
             //Skapar en höger och en vänster array
             int[] tempArrLeft = new int[mid - lo + 1];

@@ -6,7 +6,7 @@
         static void Main(string[] args)
         {
             Random rnd = new Random();
-            int arrSize = 1250000;
+            int arrSize = 100;
             int[] rndArr = new int[arrSize];
 
             for (int i = 0; i < rndArr.Length; i++)
@@ -14,17 +14,17 @@
                 rndArr[i] = rnd.Next(0, arrSize);
             }
 
-            //MergesortBetter.PrintArray(rndArr);
+            MergesortBetter.PrintArray(rndArr);
 
             DateTime start = DateTime.Now;
-            StdSort.Sort(rndArr);
-            //MergesortBetter.Sort(rndArr, 0, rndArr.Length - 1);
-            //QuicksortBetter.Sort(rndArr, 0, rndArr.Length - 1);
-            //Mergesort.Sort(rndArr, 0, rndArr.Length - 1);
-            //Quicksort.Sort(rndArr, 0, rndArr.Length - 1);
+            //StdSort.Sort(rndArr);
+            //MergesortBetter.Sort(rndArr);
+            QuicksortBetter.Sort(rndArr);
+            //Mergesort.Sort(rndArr);
+            //Quicksort.Sort(rndArr);
             DateTime end = DateTime.Now;
 
-            //MergesortBetter.PrintArray(rndArr);
+            MergesortBetter.PrintArray(rndArr);
             Console.WriteLine("Total time: " + (end - start).TotalSeconds);
         }
     }

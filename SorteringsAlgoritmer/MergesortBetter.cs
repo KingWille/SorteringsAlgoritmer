@@ -17,7 +17,12 @@ namespace SorteringsAlgoritmer
 
             Console.WriteLine();
         }
-        public static void Sort(int[] arr, int lo, int hi)
+
+        public static void Sort(int[] arr)
+        {
+            StartSort(arr, 0, arr.Length - 1);
+        }
+        private static void StartSort(int[] arr, int lo, int hi)
         {
             if (lo < hi)
             {
@@ -25,19 +30,26 @@ namespace SorteringsAlgoritmer
                 {
                     int mid = lo + (hi - lo) / 2;
 
-                    Sort(arr, lo, mid);
-                    Sort(arr, mid + 1, hi);
+                    StartSort(arr, lo, mid);
+                    StartSort(arr, mid + 1, hi);
 
                     Merge(arr, lo, hi, mid);
                 }
                 else
                 {
-                    Program.InSort.Sort(arr, lo, hi);
+                    int N = (hi + 1) - lo;
+                    for (int i = lo; i < N; i++)
+                    {
+                        for (int j = i; j > 0 && arr[j] < arr[j - 1]; j--)
+                        {
+                            int x = arr[j]; arr[j] = arr[j - 1]; arr[j - 1] = x;
+                        }
+                    }
                 }
             }
         }
 
-        public static void Merge(int[] arr, int lo, int hi, int mid)
+        private static void Merge(int[] arr, int lo, int hi, int mid)
         {
             //Skapar en höger och en vänster array
             int[] tempArrLeft = new int[mid - lo + 1];

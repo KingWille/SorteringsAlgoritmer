@@ -17,7 +17,13 @@ namespace SorteringsAlgoritmer
 
             Console.WriteLine();
         }
-        public static void Sort(int[] arr, int lo, int hi)
+
+        public static void Sort(int[] arr)
+        {
+            StartSort(arr, 0, arr.Length - 1);
+        }
+
+        private static void StartSort(int[] arr, int lo, int hi)
         {
             if (hi > lo)
             {
@@ -55,12 +61,20 @@ namespace SorteringsAlgoritmer
                     //Sätter pivot på rätt ställe
                     Exchange(arr, lo, j);
 
-                    Sort(arr, lo, j - 1);
-                    Sort(arr, j + 1, hi);
+                    StartSort(arr, lo, j - 1);
+                    StartSort(arr, j + 1, hi);
                 }
                 else
                 {
-                    Program.InSort.Sort(arr, lo, hi);
+                    //InSort
+                    int N = (hi + 1) - lo;
+                    for (int i = lo; i < N; i++)
+                    {
+                        for (int j = i; j > 0 && arr[j] < arr[j - 1]; j--)
+                        {
+                            int x = arr[j]; arr[j] = arr[j - 1]; arr[j - 1] = x;
+                        }
+                    }
                 }
             }
         }
