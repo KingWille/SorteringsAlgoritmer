@@ -1,11 +1,10 @@
-namespace SorteringsAlgoritmer
-{
+
     public class InsertionSorter : IntSorter
     {
-        public void Sort(int[] a, int lo, int hi)
+        public void Sort(int[] a)
         {
-            int N = (hi + 1) - lo;
-            for (int i = lo; i < N; i++)
+        int N = a.Length - 1;
+            for (int i = 0; i < N; i++)
             {
                 for (int j = i; j > 0 && a[j] < a[j - 1]; j--)
                 {
@@ -14,4 +13,4 @@ namespace SorteringsAlgoritmer
             }
         }
     }
-}
+

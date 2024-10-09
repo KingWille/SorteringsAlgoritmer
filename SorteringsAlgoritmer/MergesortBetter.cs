@@ -4,104 +4,101 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SorteringsAlgoritmer
+internal class MergesortBetter : IntSorter
 {
-    internal class MergesortBetter
+    public static void PrintArray(int[] arr)
     {
-        public static void PrintArray(int[] arr)
+        for (int i = 0; i < arr.Length; i++)
         {
-            for (int i = 0; i < arr.Length; i++)
+            Console.Write(arr[i] + " ");
+        }
+
+        Console.WriteLine();
+    }
+
+    public void Sort(int[] a)
+    {
+        StartSort(a, 0, a.Length - 1);
+    }
+    private void StartSort(int[] arr, int lo, int hi)
+    {
+        if (lo < hi)
+        {
+            if (hi - lo > 100)
             {
-                Console.Write(arr[i] + " ");
+                int mid = lo + (hi - lo) / 2;
+
+                StartSort(arr, lo, mid);
+                StartSort(arr, mid + 1, hi);
+
+                Merge(arr, lo, hi, mid);
             }
-
-            Console.WriteLine();
-        }
-
-        public static void Sort(int[] arr)
-        {
-            StartSort(arr, 0, arr.Length - 1);
-        }
-        private static void StartSort(int[] arr, int lo, int hi)
-        {
-            if (lo < hi)
+            else
             {
-                if (hi - lo > 100)
+                int N = hi + 1;
+                for (int i = lo; i < N; i++)
                 {
-                    int mid = lo + (hi - lo) / 2;
-
-                    StartSort(arr, lo, mid);
-                    StartSort(arr, mid + 1, hi);
-
-                    Merge(arr, lo, hi, mid);
-                }
-                else
-                {
-                    int N = (hi + 1) - lo;
-                    for (int i = lo; i < N; i++)
+                    for (int j = i; j > lo && arr[j] < arr[j - 1]; j--)
                     {
-                        for (int j = i; j > 0 && arr[j] < arr[j - 1]; j--)
-                        {
-                            int x = arr[j]; arr[j] = arr[j - 1]; arr[j - 1] = x;
-                        }
+                        int x = arr[j]; arr[j] = arr[j - 1]; arr[j - 1] = x;
                     }
                 }
             }
         }
+    }
 
-        private static void Merge(int[] arr, int lo, int hi, int mid)
+    private void Merge(int[] arr, int lo, int hi, int mid)
+    {
+        //Skapar en höger och en vänster array
+        int[] tempArrLeft = new int[mid - lo + 1];
+        int[] tempArrRight = new int[hi - mid];
+
+        //Kopierar informationen till arrayerna
+        for (int index = 0; index < tempArrLeft.Length; index++)
         {
-            //Skapar en höger och en vänster array
-            int[] tempArrLeft = new int[mid - lo + 1];
-            int[] tempArrRight = new int[hi - mid];
+            tempArrLeft[index] = arr[lo + index];
+        }
 
-            //Kopierar informationen till arrayerna
-            for (int index = 0; index < tempArrLeft.Length; index++)
+        for (int index = 0; index < tempArrRight.Length; index++)
+        {
+            tempArrRight[index] = arr[mid + 1 + index];
+        }
+
+        int i, j, k;
+        i = 0;
+        j = 0;
+        k = lo;
+
+        //Jämför värdena och lägger in dem i orginal arrayn
+        while (k <= hi)
+        {
+            if (j >= tempArrRight.Length)
             {
-                tempArrLeft[index] = arr[lo + index];
+                arr[k] = tempArrLeft[i];
+                i++;
+            }
+            else if (i >= tempArrLeft.Length)
+            {
+                arr[k] = tempArrRight[j];
+                j++;
+            }
+            else if (tempArrRight[j] < tempArrLeft[i])
+            {
+                arr[k] = tempArrRight[j];
+                j++;
+            }
+            else if (tempArrRight[j] > tempArrLeft[i])
+            {
+                arr[k] = tempArrLeft[i];
+                i++;
+            }
+            else
+            {
+                arr[k] = tempArrLeft[i];
+                i++;
             }
 
-            for (int index = 0; index < tempArrRight.Length; index++)
-            {
-                tempArrRight[index] = arr[mid + 1 + index];
-            }
-
-            int i, j, k;
-            i = 0;
-            j = 0;
-            k = lo;
-
-            //Jämför värdena och lägger in dem i orginal arrayn
-            while (k <= hi)
-            {
-                if (j >= tempArrRight.Length)
-                {
-                    arr[k] = tempArrLeft[i];
-                    i++;
-                }
-                else if (i >= tempArrLeft.Length)
-                {
-                    arr[k] = tempArrRight[j];
-                    j++;
-                }
-                else if (tempArrRight[j] < tempArrLeft[i])
-                {
-                    arr[k] = tempArrRight[j];
-                    j++;
-                }
-                else if (tempArrRight[j] > tempArrLeft[i])
-                {
-                    arr[k] = tempArrLeft[i];
-                    i++;
-                }
-                else
-                {
-                    arr[k] = tempArrLeft[i];
-                    i++;
-                }
-
-                k++;
-            }
+            k++;
         }
     }
 }
